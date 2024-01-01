@@ -92,3 +92,10 @@ services:
 # dig @localhost -p 8600 web.nginx.service.consul
 
 # consul agent -config-dir=/etc/consul.d
+
+# consul keygen
+# rm -rf /tmp/*
+# apk -U add bind-tools
+# apk add tcpdump
+# ifconfig
+# tcpdump -i eth0 -an port 8301 -A
