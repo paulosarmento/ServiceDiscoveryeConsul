@@ -16,6 +16,21 @@ services:
     container_name: consulserver03
     hostname: consulserver03
     command: ["tail", "-f", "/dev/null"]
+
+  consulclient01:
+    image: consul:1.10
+    container_name: consulclient01
+    hostname: consulclient01
+    command: ["tail", "-f", "/dev/null"]
+    volumes:
+      - ./clients/consul01:/etc/consul.d
+  consulclient02:
+    image: consul:1.10
+    container_name: consulclient02
+    hostname: consulclient02
+    command: ["tail", "-f", "/dev/null"]
+    volumes:
+      - ./clients/consul02:/etc/consul.d
 # consul agent -dev
 # consul members
 # curl localhost:8500/v1/catalog/nodes
@@ -28,3 +43,42 @@ services:
 # mkdir /var/lib/consul
 # consul agent -server -bootstrap-expect=3 -node=consulserver01 -bind=172.29.0.2 -data-dir=/var/lib/consul -config-dir=/etc/consul.d
 # consul join 172.29.0.3
+
+# ifconfig
+# mkdir /var/lib/consul
+# consul agent -bind=172.29.0.5 -data-dir=/var/lib/consul -config-dir=/etc/consul.d
+# consul members
+# consul join 172.29.0.4
+# consul members
+# consul reload
+# apk -U add bind-tools
+# dig @localhost -p 8600 SRV
+# dig @localhost -p 8600 nginx.service.consul
+# curl localhost:8500/v1/catalog/services
+# consul catalog nodes -service nginx
+# consul catalog nodes -detailed
+# dig @localhost -p 8600 web.nginx.service.consul
+
+# ifconfig
+# mkdir /var/lib/consul
+# consul agent -bind=172.29.0.6 -data-dir=/var/lib/consul -config-dir=/etc/consul.d -retry-join=172.29.0.3 -retry-join=172.29.0.4
+# consul members
+# apk -U add bind-tools
+# dig @localhost -p 8600 nginx.service.consul
+
+# consul reload
+# apk add nginx
+# nginx
+# curl localhost
+# apk add vim
+# mkdir /usr/share/nginx/html -p
+# vim /etc/nginx/http.d/default.conf
+# vim /usr/share/nginx/html/index.html
+# nginx -s reload
+# curl localhost
+# dig @localhost -p 8600 web.nginx.service.consul
+# ps
+# kill 177
+# dig @localhost -p 8600 web.nginx.service.consul
+# nginx
+# dig @localhost -p 8600 web.nginx.service.consul
