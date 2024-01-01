@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  consulserver01:
+    image: consul:1.10
+    container_name: consulserver01
+    hostname: consulserver01
+    command: ["tail", "-f", "/dev/null"]
+  consulserver02:
+    image: consul:1.10
+    container_name: consulserver02
+    hostname: consulserver02
+    command: ["tail", "-f", "/dev/null"]
+  consulserver03:
+    image: consul:1.10
+    container_name: consulserver03
+    hostname: consulserver03
+    command: ["tail", "-f", "/dev/null"]
+# consul agent -dev
+# consul members
+# curl localhost:8500/v1/catalog/nodes
+# apk -U add bind-tools
+# dig @localhost -p 8600
+# dig @localhost -p 8600 consul01.node.consul
+# dig @localhost -p 8600 consul01.node.consul +short
+# ifconfig
+# mkdir /etc/consul.d
+# mkdir /var/lib/consul
+# consul agent -server -bootstrap-expect=3 -node=consulserver01 -bind=172.29.0.2 -data-dir=/var/lib/consul -config-dir=/etc/consul.d
+# consul join 172.29.0.3
